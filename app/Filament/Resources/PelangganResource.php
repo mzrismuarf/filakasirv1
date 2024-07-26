@@ -29,6 +29,7 @@ class PelangganResource extends Resource
                     ->maxLength(30),
                 Forms\Components\TextInput::make('no_telepon')
                     ->label('Nomor Telepon')
+                    ->unique(ignoreRecord: true)
                     ->maxLength(14),
                 Forms\Components\TextInput::make('alamat')
                     ->maxLength(255),
