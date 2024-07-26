@@ -41,7 +41,7 @@ class PelangganResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama'),
-                Tables\Columns\TextColumn::make('no_telepon'),
+                Tables\Columns\TextColumn::make('no_telepon')->label('Nomer Telepon'),
                 Tables\Columns\TextColumn::make('alamat'),
             ])
             ->filters([
