@@ -58,6 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentEditProfilePlugin::make()
+                    ->setIcon('heroicon-o-user'),
             ]);
     }
 }
