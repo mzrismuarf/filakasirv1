@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -18,6 +19,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
+use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
 
 
 class AdminPanelProvider extends PanelProvider
@@ -60,6 +62,12 @@ class AdminPanelProvider extends PanelProvider
                 FilamentEditProfilePlugin::make()
                     ->setIcon('heroicon-o-user')
                     ->shouldShowAvatarForm(),
+            ])
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label("Edit Profile")
+                    ->url(fn (): string => EditProfilePage::getUrl())
+                    ->icon('heroicon-m-cog-6-tooth')
             ]);
     }
 }
