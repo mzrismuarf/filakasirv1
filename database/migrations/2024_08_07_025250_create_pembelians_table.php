@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pembelians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelanggan_id')->constrained('pelanggans');
+            $table->foreignId('supplier_id')->constrained('suppliers');
             $table->date('tanggal');
             $table->timestamps();
         });
