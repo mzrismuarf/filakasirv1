@@ -20,32 +20,39 @@ class SupplierResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $label = 'Data Supplier';
 
+    public static function getForm()
+    {
+        return [
+            Forms\Components\TextInput::make('nama_perusahaan')
+                ->label('Nama Perusahaan')
+                ->minLength(3)
+                ->maxLength(255),
+            Forms\Components\TextInput::make('nama')
+                ->label('Nama Kontak')
+                ->minLength(3)
+                ->maxLength(255)
+                ->required(),
+            Forms\Components\TextInput::make('no_hp')
+                ->label('Nomor Telepon')
+                ->tel()
+                ->maxLength(14),
+            Forms\Components\TextInput::make('email')
+                ->label('Email')
+                ->email()
+                ->maxLength(255),
+            Forms\Components\TextInput::make('alamat')
+                ->label('Alamat')
+                ->minLength(3)
+                ->maxLength(255),
+        ];
+    }
+
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('nama_perusahaan')
-                    ->label('Nama Perusahaan')
-                    ->minLength(3)
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('nama')
-                    ->label('Nama Kontak')
-                    ->minLength(3)
-                    ->maxLength(255)
-                    ->required(),
-                Forms\Components\TextInput::make('no_hp')
-                    ->label('Nomor Telepon')
-                    ->tel()
-                    ->maxLength(14),
-                Forms\Components\TextInput::make('email')
-                    ->label('Email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('alamat')
-                    ->label('Alamat')
-                    ->minLength(3)
-                    ->maxLength(255),
-            ]);
+            ->schema(
+                self::getForm()
+            );
     }
 
     public static function table(Table $table): Table
