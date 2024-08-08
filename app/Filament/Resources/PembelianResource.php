@@ -32,7 +32,7 @@ class PembelianResource extends Resource
                     ->label('Tanggal Pembelian')
                     ->required()
                     ->default(now())->columnSpanFull(),
-                Select::make('suppliers')
+                Select::make('supplier_id')
                     ->options(
                         \App\Models\Supplier::pluck('nama_perusahaan', 'id')
                     )->required()
