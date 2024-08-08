@@ -26,20 +26,14 @@ class BarangResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('kode')
                     ->label('Kode Barang')
-                    ->minLength(3)
-                    ->maxLength(255)
                     ->required(),
                 Forms\Components\TextInput::make('nama')
-                    ->label('Nama Barang')
-                    ->minLength(3)
-                    ->maxLength(255),
+                    ->label('Nama Barang'),
                 Forms\Components\TextInput::make('harga')
                     ->label('Harga Barang'),
                 Forms\Components\TextInput::make('stok')
                     ->label('Stok Barang')
-                    ->disabledOn('edit')
-                    ->minLength(3)
-                    ->maxLength(255),
+                    ->disabledOn('edit'),
                 Forms\Components\Select::make('satuan')->label('Satuan Barang')
                     ->options([
                         'pcs' => 'Pcs',
