@@ -33,6 +33,8 @@ class BarangResource extends Resource
                     ->label('Nama Barang')
                     ->minLength(3)
                     ->maxLength(255),
+                Forms\Components\TextInput::make('harga')
+                    ->label('Harga Barang'),
                 Forms\Components\TextInput::make('stok')
                     ->label('Stok Barang')
                     ->disabledOn('edit')
@@ -52,6 +54,7 @@ class BarangResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('kode')->searchable(),
                 Tables\Columns\TextColumn::make('nama')->searchable(),
+                Tables\Columns\TextColumn::make('harga')->searchable(),
                 Tables\Columns\TextColumn::make('stok')->searchable(),
                 Tables\Columns\TextColumn::make('satuan'),
             ])
