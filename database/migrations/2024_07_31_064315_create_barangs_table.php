@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kategori')->nullable();
             $table->string('stok');
             $table->string('satuan');
+            $table->integer('harga')->default(0);
             $table->timestamps();
         });
     }
