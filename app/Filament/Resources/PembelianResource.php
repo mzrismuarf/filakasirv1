@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\PembelianResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PembelianResource\RelationManagers;
@@ -27,6 +28,10 @@ class PembelianResource extends Resource
     {
         return $form
             ->schema([
+                DateTimePicker::make('tanggal')
+                    ->label('Tanggal Pembelian')
+                    ->required()
+                    ->default(now())->columnSpanFull(),
                 Select::make('suppliers')
                     ->options(
                         \App\Models\Supplier::pluck('nama_perusahaan', 'id')
