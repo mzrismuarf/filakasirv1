@@ -5,6 +5,7 @@ namespace App\Filament\Resources\PembelianItemResource\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\PembelianItemResource;
+use App\Filament\Resources\PembelianItemResource\Widgets\PembelianItemWidget;
 
 class CreatePembelianItem extends CreateRecord
 {
@@ -30,5 +31,19 @@ class CreatePembelianItem extends CreateRecord
                 'pembelian_id' => $id
             ]
         );
+    }
+
+    public function getFooterWidgetsColumns(): int | array
+    {
+        return 1;
+    }
+
+    public function getFooterWidgets(): array
+    {
+        return [
+            PembelianItemWidget::make([
+                'record' => request('pembelian_id')
+            ]),
+        ];
     }
 }
