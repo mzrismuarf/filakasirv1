@@ -3,9 +3,11 @@
 namespace App\Filament\Resources\PembelianItemResource\Widgets;
 
 use Filament\Tables;
+use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Support\Facades\DB;
 
 class PembelianItemWidget extends BaseWidget
 {
@@ -26,12 +28,18 @@ class PembelianItemWidget extends BaseWidget
             )
             ->columns([
                 TextColumn::make('barang.nama')->label('Nama Barang'),
-                TextColumn::make('jumlah')->label('Jumlah Barang'),
+                TextColumn::make('jumlah')->label('Jumlah Barang')->alignCenter(),
                 TextColumn::make('harga')->label('Harga Barang')->money('IDR'),
                 TextColumn::make('total')->label('Total Harga Barang')
                     ->getStateUsing(function ($record) {
                         return $record->jumlah * $record->harga;
-                    })->money('IDR')->alignEnd(),
+                    })->money('IDR')->alignEnd()
+                    ->summarize(
+                        Summarizer::make()
+                            ->using(function ($query) {
+                                return $query->sum(DB::raw('jumlah * harga'));
+                            })->money('IDR'),
+                    ),
 
             ]);
     }
