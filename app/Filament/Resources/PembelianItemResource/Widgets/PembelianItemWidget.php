@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PembelianItemResource\Widgets;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Tables;
 use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Columns\TextColumn;
@@ -41,6 +42,12 @@ class PembelianItemWidget extends BaseWidget
                             })->money('IDR'),
                     ),
 
+            ])->actions([
+                Tables\Actions\EditAction::make()
+                    ->form([
+                        TextInput::make('jumlah')->required(),
+                    ]),
+                Tables\Actions\DeleteAction::make()
             ]);
     }
 }
