@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use Illuminate\Http\Request;
 use App\Models\PembelianItem;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -37,36 +38,42 @@ class PembelianItemResource extends Resource
 
         return $form
             ->schema([
-                DateTimePicker::make('tanggal')
-                    ->label('Tanggal Pembelian')
-                    ->required()
-                    ->default($pembelian->tanggal)->columnSpanFull()
-                    ->disabled(),
-                TextInput::make('supplier_id')
-                    ->label('Supplier')
-                    ->required()
-                    ->disabled()
-                    ->default($pembelian->supplier?->nama),
-                TextInput::make('supplier_id')
-                    ->label('Email Supplier')
-                    ->required()
-                    ->disabled()
-                    ->default($pembelian->supplier?->email),
-                Select::make('barang_id')
-                    ->label('Barang')
-                    ->required()
-                    ->options(
-                        \App\Models\Barang::all()->pluck('nama', 'id')
-                    )
-                    ->reactive()
-                    ->afterStateUpdated(function ($state, Set $set) {
-                        $barang = \App\Models\Barang::find($state);
-                        $set('harga', $barang->harga ?? null);
-                    }),
-                TextInput::make('jumlah')
-                    ->label('Jumlah Barang'),
-                TextInput::make('harga')
-                    ->label('Harga Barang'),
+                Grid::make()
+                    ->schema([
+                        DateTimePicker::make('tanggal')
+                            ->label('Tanggal Pembelian')
+                            ->required()
+                            ->default($pembelian->tanggal)
+                            ->disabled(),
+                        TextInput::make('supplier_id')
+                            ->label('Supplier')
+                            ->required()
+                            ->disabled()
+                            ->default($pembelian->supplier?->nama),
+                        TextInput::make('supplier_id')
+                            ->label('Email Supplier')
+                            ->required()
+                            ->disabled()
+                            ->default($pembelian->supplier?->email),
+                    ])->columns(3),
+                Grid::make()
+                    ->schema([
+                        Select::make('barang_id')
+                            ->label('Barang')
+                            ->required()
+                            ->options(
+                                \App\Models\Barang::all()->pluck('nama', 'id')
+                            )
+                            ->reactive()
+                            ->afterStateUpdated(function ($state, Set $set) {
+                                $barang = \App\Models\Barang::find($state);
+                                $set('harga', $barang->harga ?? null);
+                            }),
+                        TextInput::make('jumlah')
+                            ->label('Jumlah Barang'),
+                        TextInput::make('harga')
+                            ->label('Harga Barang'),
+                    ])->columns(3),
                 Hidden::make('pembelian_id')
                     ->default(request('pembelian_id')),
             ]);
