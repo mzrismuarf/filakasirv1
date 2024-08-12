@@ -27,11 +27,11 @@ class PembelianItemWidget extends BaseWidget
             ->columns([
                 TextColumn::make('barang.nama')->label('Nama Barang'),
                 TextColumn::make('jumlah')->label('Jumlah Barang'),
-                TextColumn::make('harga')->label('Harga Barang'),
+                TextColumn::make('harga')->label('Harga Barang')->money('IDR'),
                 TextColumn::make('total')->label('Total Harga Barang')
                     ->getStateUsing(function ($record) {
                         return $record->jumlah * $record->harga;
-                    }),
+                    })->money('IDR')->alignEnd(),
 
             ]);
     }
