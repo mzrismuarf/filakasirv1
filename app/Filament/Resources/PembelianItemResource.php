@@ -20,6 +20,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PembelianItemResource\Pages;
 use App\Filament\Resources\PembelianItemResource\RelationManagers;
+use Filament\Forms\Get;
 
 class PembelianItemResource extends Resource
 {
@@ -65,15 +66,28 @@ class PembelianItemResource extends Resource
                                 \App\Models\Barang::all()->pluck('nama', 'id')
                             )
                             ->reactive()
-                            ->afterStateUpdated(function ($state, Set $set) {
+                            ->afterStateUpdated(function ($state, Set $set, Get $get) {
                                 $barang = \App\Models\Barang::find($state);
                                 $set('harga', $barang->harga ?? null);
+                                $jumlah = $get('jumlah');
+                                $total = $jumlah * $barang->harga;
+                                $set('total', $total);
                             }),
-                        TextInput::make('jumlah')
-                            ->label('Jumlah Barang'),
                         TextInput::make('harga')
-                            ->label('Harga Barang'),
-                    ])->columns(3),
+                            ->label('Harga Barang')->required(),
+                        TextInput::make('jumlah')
+                            ->reactive()
+                            ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                $jumlah = $state;
+                                $harga = $get('harga');
+                                $total = $jumlah * $harga;
+                                $set('total', $total);
+                            })
+                            ->label('Jumlah Barang')->required()->default(1),
+                        TextInput::make('total')
+                            ->label('Total Harga'),
+
+                    ])->columns(4),
                 Hidden::make('pembelian_id')
                     ->default(request('pembelian_id')),
             ]);
