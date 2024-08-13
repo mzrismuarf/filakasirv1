@@ -16,6 +16,7 @@ use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\PembelianResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PembelianResource\RelationManagers;
+use Filament\Tables\Columns\TextColumn;
 
 class PembelianResource extends Resource
 {
@@ -57,7 +58,9 @@ class PembelianResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('supplier.nama_perusahaan')->label('Nama Supplier'),
+                TextColumn::make('supplier.nama')->label('Nama Penghubung (Sales)'),
+                TextColumn::make('tanggal')->dateTime('d F Y')->label('Tanggal Pembelian'),
             ])
             ->filters([
                 //
