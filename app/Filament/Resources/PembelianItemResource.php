@@ -85,6 +85,7 @@ class PembelianItemResource extends Resource
                             })
                             ->label('Jumlah Barang')->required()->default(1),
                         TextInput::make('total')
+                            ->disabled()
                             ->label('Total Harga'),
 
                     ])->columns(4),
